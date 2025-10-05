@@ -144,7 +144,6 @@ Frontend em **Angular 19** com **Standalone Components**, **Interceptor de JWT**
 - **RxJS 7.8+**
 - **Angular Router**
 - **HTTP Client com Interceptor (JWT)**
-- **Karma/Jasmine** (testes de componente)
 
 ---
 
