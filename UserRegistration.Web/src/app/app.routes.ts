@@ -8,6 +8,10 @@ export const routes: Routes = [
     path: 'login',
     loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule)
   },
+
+  // ROTA PÚBLICA (cadastro/registro)
+  { path: 'register', loadComponent: () => import('./features/users/pages/user-form/user-form.component').then(m => m.UserFormComponent) },
+
   {
     path: 'users',
     canActivate: [canActivateAuth],

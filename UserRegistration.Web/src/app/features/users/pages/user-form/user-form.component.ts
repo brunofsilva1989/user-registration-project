@@ -74,7 +74,7 @@ export class UserFormComponent {
       },
       error: (err) => {
         this.saving = false;
-        this.error = err?.error?.message ?? 'Falha ao salvar usuário.';
+        this.error = err?.error?.message ?? 'Email already exists, impossible to register, use a different email.';
       }
     });
   }
