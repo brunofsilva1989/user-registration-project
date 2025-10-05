@@ -1,0 +1,5 @@
+.form { max-width: 520px; display: grid; gap: 12px; }
+label { display: flex; flex-direction: column; gap: 4px; }
+input { padding: .5rem; border: 1px solid #555; border-radius: .5rem; }
+.actions { display: flex; gap: 12px; justify-content: flex-end; margin-top: 8px; }
+.err { color: #ef4444; }

@@ -1,0 +1,38 @@
+.home-hero { padding: 32px 0; }
+
+.home-banner {
+  padding: 32px;
+  border-radius: 18px;
+  background: rgba(59, 130, 246, 0.06);
+  border: 2px solid rgba(59, 130, 246, .25);
+  backdrop-filter: blur(6px);
+}
+
+.title-shadow {
+  letter-spacing: .5px;
+  color: #2a4b9d;
+  text-shadow:
+    0 2px 0 rgba(0,0,0,.08),
+    0 8px 18px rgba(0,0,0,.15),
+    0 0 0 #1d3f8f;
+}
+
+/* animação/elevação dos botões */
+.btn-raise {
+  border-radius: 12px;
+  transition:
+    transform .15s ease,
+    box-shadow .2s ease,
+    background-color .2s ease,
+    color .2s ease,
+    border-color .2s ease;
+}
+.btn-raise:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 .95rem 1.6rem rgba(0,0,0,.12);
+}
+
+.btn-primary { background-color: var(--brand); border-color: var(--brand); }
+.btn-primary:hover { background-color: var(--brand-2); border-color: var(--brand-2); }
+.btn-outline-primary { color: var(--brand); border-color: var(--brand); }
+.btn-outline-primary:hover { color: #fff; background-color: var(--brand); border-color: var(--brand); }

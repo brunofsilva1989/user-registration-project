@@ -1,0 +1,44 @@
+<div class="min-vh-100 d-flex align-items-center">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-xl-8 col-lg-9">
+        <div class="p-4 mb-4 text-center rounded-4 border" style="background: rgba(59,130,246,.06); border-color: rgba(59,130,246,.25) !important;">
+          <h1 class="display-5 fw-bold m-0" style="letter-spacing:.5px;color:#2a4b9d;text-shadow:0 2px 0 rgba(0,0,0,.08),0 8px 18px rgba(0,0,0,.15);">
+            User Registration
+          </h1>
+        </div>
+
+        <div class="text-center mb-3" *ngIf="session.logged; else notLogged">
+          <div class="badge text-bg-success px-3 py-2 me-2">
+            Logado como <strong>{{ displayName }}</strong>
+          </div>
+          <button class="btn btn-sm btn-outline-danger" (click)="logout()">
+            <i class="bi bi-box-arrow-right"></i> Sair
+          </button>
+        </div>
+        <ng-template #notLogged>
+          <div class="text-center mb-3">
+            <span class="badge text-bg-secondary px-3 py-2">Você não está logado</span>
+          </div>
+        </ng-template>
+
+        <div class="d-flex gap-3 justify-content-center flex-wrap">
+          <a class="btn btn-lg btn-primary px-5" routerLink="/login" *ngIf="!session.logged">Login</a>
+          <a class="btn btn-lg btn-outline-primary px-5" routerLink="/users/new">Create User</a>
+          <a class="btn btn-lg btn-success px-5" routerLink="/users" *ngIf="session.logged">List Users</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-container position-fixed bottom-0 end-0 p-3" *ngIf="showSuccess">
+    <div class="toast show text-bg-success border-0 shadow-sm">
+      <div class="d-flex">
+        <div class="toast-body">
+          ✅ Login realizado com sucesso{{ user ? (', ' + user) : '' }}!
+        </div>
+        <button class="btn-close btn-close-white me-2 m-auto" (click)="showSuccess=false"></button>
+      </div>
+    </div>
+  </div>
+</div>

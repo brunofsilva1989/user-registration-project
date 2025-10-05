@@ -1,0 +1,41 @@
+<div class="container py-4">
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <h2 class="h4 m-0">Usuários</h2>
+    <div class="d-flex gap-2">
+      <a routerLink="/" class="btn btn-outline-secondary"><i class="bi bi-house"></i> Home</a>
+      <a routerLink="/users/new" class="btn btn-primary"><i class="bi bi-person-plus"></i> Novo</a>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="alert alert-info">Carregando...</div>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <div class="table-responsive" *ngIf="!loading">
+    <table class="table table-striped align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>Login</th>
+          <th>Nome</th>
+          <th>E-mail</th>
+          <th>Criado em</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let u of users">
+          <td>{{ u.login }}</td>
+          <td>{{ u.firstName }} {{ u.lastName }}</td>
+          <td>{{ u.email }}</td>
+          <td>{{ u.createdAtText }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p *ngIf="users.length === 0" class="text-muted">Nenhum usuário encontrado.</p>
+  </div>
+
+  <div class="mt-4 d-flex justify-content-end" *ngIf="!loading">
+    <a routerLink="/" class="btn btn-outline-secondary">
+      <i class="bi bi-house"></i> Voltar para Home
+    </a>
+  </div>
+</div>
