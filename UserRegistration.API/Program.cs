@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
-using UserRegistration.Application.Abstractions;
 using UserRegistration.Application.Users.Commands.Register;
 using UserRegistration.Infrastructure;
 using UserRegistration.Infrastructure.Security;
@@ -43,40 +42,32 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-// DbContext (scoped por padrão)
 builder.Services.AddDbContext<UserRegistrationDbContext>(o =>
     o.UseSqlServer(builder.Configuration.GetConnectionString("UserRegistration")));
 
-// MediatR
 builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssemblyContaining<RegisterUserCommand>());
 
-// Repositório
 builder.Services.AddScoped<
     UserRegistration.Application.Abstractions.Repositories.IUsersRepository,
     UserRegistration.Infrastructure.Repositories.UsersRepository>();
 
-// Hasher custom
 builder.Services.AddSingleton<
     UserRegistration.Application.Abstractions.Security.IPasswordHasher,
     UserRegistration.Infrastructure.Security.PasswordHasher>();
 
-// UoW = MESMA instância do DbContext do escopo 
 builder.Services.AddScoped<UserRegistration.Application.Abstractions.IUnitOfWork>(sp =>
     sp.GetRequiredService<UserRegistration.Infrastructure.UserRegistrationDbContext>());
 
-// JwtOptions / Token
 builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("Jwt"));
 builder.Services.AddSingleton<
     UserRegistration.Application.Abstractions.Security.IJwtTokenGenerator,
     UserRegistration.Infrastructure.Security.JwtTokenGenerator>();
 
-// JwtTokenGenerator
 builder.Services.AddSingleton<
     UserRegistration.Application.Abstractions.Security.IJwtTokenGenerator,
     UserRegistration.Infrastructure.Security.JwtTokenGenerator>();
 
-// JWT (validação)
 var jwt = builder.Configuration.GetSection("Jwt").Get<JwtOptions>()!;
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(o =>
@@ -99,11 +90,10 @@ builder.Services.AddCors(opt =>
     opt.AddPolicy("AllowSpa", p => p
         .WithOrigins(
             "http://localhost:4200",
-            "https://localhost:4200"  // opcional: se um dia rodar o dev em https
+            "https://localhost:4200"  
         )
         .AllowAnyHeader()
-        .AllowAnyMethod()
-    // .AllowCredentials() // só se usar cookie; para Bearer não precisa
+        .AllowAnyMethod()    
     );
 });
 

@@ -8,7 +8,6 @@ using UserRegistration.Application.Abstractions.Security;
 using UserRegistration.Application.Dto;
 using UserRegistration.Application.Users.Commands.Register;
 using UserRegistration.Domain.Entities;
-using Xunit;
 
 namespace UserRegistration.UnitTests.Users
 {
@@ -21,8 +20,7 @@ namespace UserRegistration.UnitTests.Users
 
         [Fact]
         public async Task Handle_ShouldCreateUser_WhenEmailDoesNotExist()
-        {
-            // Arrange
+        {            
             var cmd = new RegisterUserCommand(
                 login: "jsilva",
                 firstName: "João",
@@ -62,8 +60,7 @@ namespace UserRegistration.UnitTests.Users
 
         [Fact]
         public async Task Handle_ShouldThrow_WhenEmailAlreadyExists()
-        {
-            // Arrange
+        {            
             var cmd = new RegisterUserCommand(
                 login: "jsilva",
                 firstName: "João",
@@ -76,11 +73,9 @@ namespace UserRegistration.UnitTests.Users
                  .ReturnsAsync(true);
 
             var handler = new RegisterUserCommandHandler(_repo.Object, _hasher.Object, _uow.Object, _logger.Object);
-
-            // Act
+            
             var act = async () => await handler.Handle(cmd, CancellationToken.None);
 
-            // Assert
             await act.Should().ThrowAsync<InvalidOperationException>()
                      .WithMessage("*E-mail*"); 
             _repo.Verify(r => r.AddAsync(It.IsAny<UsersModel>(), It.IsAny<CancellationToken>()), Times.Never);
